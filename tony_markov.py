@@ -34,11 +34,14 @@ def count(s):
 markov = {}
 
 # Verifies input
-USAGE = "Usage\n\ndir_name =\tdirectory containing trining files, only .txt\nPRE_LENGTH =\tlength of markov state in words\nPOST_LENGTH =\tlength of markov outputs in words\nfile_name =\tname of generated file, only .swag\n\nUsage:\ttony_markov.py make <dir_name> <PRE_LENGTH> <POST_LENGTH>\n\ttony_markov.py load <file_name>"
-if len(sys.argv) < 2 or sys.argv[1].upper() == "HELP":
+HELP_USAGE = "Usage\n\ndir_name =\tdirectory containing trining files, only .txt\nPRE_LENGTH =\tlength of markov state in words\nPOST_LENGTH =\tlength of markov outputs in words\nfile_name =\tname of generated file, only .swag\n\nMultiplicity is the average number of posts for each pre in the dictionary\n\nUsage:\ttony_markov.py make <dir_name> <PRE_LENGTH> <POST_LENGTH>\n\ttony_markov.py load <file_name>"
+USAGE = "Usage (type \"help\" for more details)\n\nUsage:\ttony_markov.py make <dir_name> <PRE_LENGTH> <POST_LENGTH>\n\ttony_markov.py load <file_name>"
+if len(sys.argv) < 2:
     raise Exception(USAGE)
+elif sys.argv[1].upper() == "HELP":
+    raise Exception(HELP_USAGE)
 elif sys.argv[1].upper() not in ("MAKE","LOAD"):
-    raise Exception("Unrecognized command \"%s\"" % sys.argv[1].upper())
+    raise Exception("Unrecognized command \"%s\"" % sys.argv[1])
 elif sys.argv[1].upper() == "MAKE" and len(sys.argv) != 5:
     raise Exception("Wrong number of arguments for load (expected 3)")
 elif sys.argv[1].upper() == "MAKE" and (int(sys.argv[3]) <= 0 or int(sys.argv[4]) <= 0):
