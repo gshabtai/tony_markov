@@ -67,8 +67,16 @@ else:
         time = date.today().strftime("%d%m%Y") + datetime.now().strftime("%H%M%S") # Records time used for formatting file name
         fw = open("markov_"+time+".swag","x")
 
+        new_path = sys.argv[2]
+        
+        while len(new_path) > 0 or new_path[len(new_path)-1] != '/':
+            new_path = new_path[:-1]
+
+        if len(new_path) == 0:
+            new_path = sys.argv[2]
+
         # Iterates over files in the given directory.
-        for f_name in listdir(sys.argv[2]):
+        for f_name in listdir(new_path):
             if not f_name.endswith(".txt"):
                 continue
 
