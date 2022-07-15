@@ -34,7 +34,7 @@ def count(s):
 markov = {}
 
 # Verifies input
-HELP_USAGE = "Usage\n\ndir_name =\tdirectory containing trining files, only .txt\nPRE_LENGTH =\tlength of markov state in words\nPOST_LENGTH =\tlength of markov outputs in words\nfile_name =\tname of generated file, only .swag\n\nMultiplicity is the average number of posts for each pre in the dictionary\n\nUsage:\ttony_markov.py make <dir_name> <PRE_LENGTH> <POST_LENGTH>\n\ttony_markov.py load <file_name>"
+HELP_USAGE = "Usage\n\ndir_name =\tdirectory containing trining files, only .txt\nPRE_LENGTH =\tlength of markov state in words\nPOST_LENGTH =\tlength of markov outputs in words\nfile_name =\tname of generated file, only .swag\n\nMultiplicity is the average number of posts for each pre in the dictionary. Recommended to be at least 2. Improve multiplicity by reducing pre and post numbers, and by making pre number equal the post number.\n\nUsage:\ttony_markov.py make <dir_name> <PRE_LENGTH> <POST_LENGTH>\n\ttony_markov.py load <file_name>"
 USAGE = "Usage (type \"help\" for more details)\n\nUsage:\ttony_markov.py make <dir_name> <PRE_LENGTH> <POST_LENGTH>\n\ttony_markov.py load <file_name>"
 if len(sys.argv) < 2:
     raise Exception(USAGE)
@@ -43,7 +43,7 @@ elif sys.argv[1].upper() == "HELP":
 elif sys.argv[1].upper() not in ("MAKE","LOAD"):
     raise Exception("Unrecognized command \"%s\"" % sys.argv[1])
 elif sys.argv[1].upper() == "MAKE" and len(sys.argv) != 5:
-    raise Exception("Wrong number of arguments for load (expected 3)")
+    raise Exception("Wrong number of arguments for make (expected 3)")
 elif sys.argv[1].upper() == "MAKE" and (int(sys.argv[3]) <= 0 or int(sys.argv[4]) <= 0):
     raise Exception("Pre and post arguments must be greater than 0")
 elif sys.argv[1].upper() == "LOAD" and len(sys.argv) != 3:
@@ -68,19 +68,15 @@ else:
         fw = open("markov_"+time+".swag","x")
 
         new_path = sys.argv[2]
-        
-        while len(new_path) > 0 or new_path[len(new_path)-1] != '/':
-            new_path = new_path[:-1]
-
-        if len(new_path) == 0:
-            new_path = sys.argv[2]
+        if new_path[len(new_path)-1] != "/":
+            new_path = new_path + "/"
 
         # Iterates over files in the given directory.
         for f_name in listdir(new_path):
             if not f_name.endswith(".txt"):
                 continue
 
-            fs = open(f_name,"r")
+            fs = open(new_path + f_name,"r")
 
             # Reads through the whole file
             while True:
