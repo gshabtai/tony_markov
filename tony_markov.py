@@ -64,8 +64,15 @@ else:
 
     # The MAKE operation
     if operation == "MAKE":
-        time = date.today().strftime("%d%m%Y") + datetime.now().strftime("%H%M%S") # Records time used for formatting file name
-        fw = open("markov_"+time+".swag","x")
+        time = ""
+        today = date.today().strftime("%d%m%Y")
+        for i in range(len(today)):
+            if not (i == len(today)-3 or i == len(today)-4):
+                time = time + today[i]
+     
+        time = time + datetime.now().strftime("%H%M%S") # Records time used for formatting file name
+        name_of_file = "markov_"+str(PRE_LENGTH)+"_"+str(POST_LENGTH)+"_"+time+".swag"
+        fw = open(name_of_file,"x")
 
         new_path = sys.argv[2]
         if new_path[len(new_path)-1] != "/":
@@ -176,7 +183,7 @@ else:
         # Multiplicity is the average number of posts for each pre in the dictionary
         mult_txt = "Multiplicity: %s. Recommended to be at least 2." % ratio
 
-        print("Done! %s\nUse \"python tony_markov.py load %s\"" % (mult_txt,("markov_"+time+".swag")))
+        print("Done! %s\nUse \"python tony_markov.py load %s\"" % (mult_txt,(name_of_file)))
 
     # The LOAD operation
     else:
