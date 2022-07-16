@@ -1,1 +1,0 @@
-Increasing the size of pre increases how context-aware the AI is, as it is able to use more words to make its predictions. Increasing the size of post increases how close the prediction is to the original text.
