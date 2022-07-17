@@ -46,7 +46,7 @@ though the word "red" is not the only one being mapped. The full mapping would b
 - probably -> the greatest 1
 - greatest -> tony fan 1
 
-## Example 3: pre=1, post=2:
+## Example 3: pre=2, post=2:
 
 - hello world -> i am 1
 - world i -> am guy 1
