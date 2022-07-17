@@ -206,6 +206,7 @@ else:
             else:
                 POST_LENGTH = int(line)
 
+        num_invalid_lines = 0
         while True:
             line = fs.readline()
             if not line:
@@ -214,9 +215,17 @@ else:
             line = line.strip().split()
 
             # Reads pre from file
+            invalid = False
             new_pre = ""
             for i in range(PRE_LENGTH):
+                if i >= len(line):
+                    invalid = True
+                if invalid:
+                    num_invalid_lines += 1
+                    break
                 new_pre = new_pre + line[i] + " "
+            if invalid:
+                continue
 
             new_pre = new_pre[:-1]
             new_post = Post()
@@ -237,6 +246,8 @@ else:
             markov.update({new_pre : new_post})
                   
         fs.close()
+        if num_invalid_lines > 0:
+            print("Warning: %s invalid lines ignored."%str(num_invalid_lines))
 
         # Debugging: lists all loaded items
         #for item in markov.items():
