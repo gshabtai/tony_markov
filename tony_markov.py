@@ -254,39 +254,44 @@ else:
         #    print(item[0],item[1].text)
 
         # Determines approximately how many words will be outputed.
-        times = 0
-        while times <= 0:
-            times = int(input("Done! Make how many words? ")) // (POST_LENGTH)
-        
-        #alternate use: get a random pre to start with
-        #s = list(markov)[random.randint(0,len(markov.keys())-1)]
+        print("Done! ",end="")
+        while True:
+            times = 0
+            while times <= 0:
+                in_text = input("Make how many words? ")
+                if len(in_text) == 0:
+                    continue
+                times = int(in_text) // (POST_LENGTH)
+            
+            #alternate use: get a random pre to start with
+            #s = list(markov)[random.randint(0,len(markov.keys())-1)]
 
-        # Get a pre to start with from this list
-        starts = [
-            "how you guys doing this is very important in reference",
-            "how you guys doing this is another thing of importance in reference"
-        ]
+            # Get a pre to start with from this list
+            starts = [
+                "how you guys doing this is very important in reference",
+                "how you guys doing this is another thing of importance in reference"
+            ]
 
-        s = starts[random.randint(0,len(starts)-1)]
-        
-        total = 0 # Used only to determine chain effectiveness. Effectivesness is how many times the chain is able to use a pre-post pair to determine the next word, instead of a random pre.
-        added = 0 # Used only to determine chain effectiveness.
-        print()
-        for i in range(times):
-            total += 1
-            temp = s.split()
-            key = ""
-            for i in range(len(temp)-PRE_LENGTH,len(temp)):
-                key = key + temp[i] + " "
-            key = key.strip()
-            to_add = markov.get(key)
+            s = starts[random.randint(0,len(starts)-1)]
+            
+            total = 0 # Used only to determine chain effectiveness. Effectivesness is how many times the chain is able to use a pre-post pair to determine the next word, instead of a random pre.
+            added = 0 # Used only to determine chain effectiveness.
+            print()
+            for i in range(times):
+                total += 1
+                temp = s.split()
+                key = ""
+                for i in range(len(temp)-PRE_LENGTH,len(temp)):
+                    key = key + temp[i] + " "
+                key = key.strip()
+                to_add = markov.get(key)
 
-            # If we found a post for the current pre, add it.
-            if to_add is not None:
-                s = s + " " + to_add.get_text()
-                added += 1
-            # Otherwise, just continue with a random pre.
-            else:
-                s = s + " " + list(markov)[random.randint(0,len(markov.keys())-1)]
-        print(s)
-        print("\nDone! Chain %s%s effective."%(str(100*added/total),'%'))
+                # If we found a post for the current pre, add it.
+                if to_add is not None:
+                    s = s + " " + to_add.get_text()
+                    added += 1
+                # Otherwise, just continue with a random pre.
+                else:
+                    s = s + " " + list(markov)[random.randint(0,len(markov.keys())-1)]
+            print(s)
+            print("\nDone! Chain %s%s effective."%(str(100*added/total),'%'))
