@@ -5,6 +5,7 @@ Open source markov chain to emulate tonychasebusiness. Created by Guy Shabtai.
 1. Download .zip
 2. Extract
 3. ./tony_markov load markov_3_3_170722155638.swag
+4. ./tony_markov help
 
 # How it Works
 This markov chain divides its operation into two components, called "pre" and "post". "pre" is some word (or words) that is used to predict the text following it, called "post". The program iterates over text, and makes a list of posts for every pre. Posts that are more prominent have a higher weight.
