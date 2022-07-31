@@ -272,7 +272,8 @@ else:
                 "how you guys doing this is another thing of importance in reference"
             ]
 
-            s = starts[random.randint(0,len(starts)-1)]
+            # s = starts[random.randint(0,len(starts)-1)]
+            s = list(markov)[random.randint(0,len(markov.keys())-1)]
             
             total = 0 # Used only to determine chain effectiveness. Effectivesness is how many times the chain is able to use a pre-post pair to determine the next word, instead of a random pre.
             added = 0 # Used only to determine chain effectiveness.
