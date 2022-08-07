@@ -4,7 +4,7 @@ Open source markov chain to emulate tonychasebusiness. Created by Guy Shabtai.
 # Quick Start
 1. Download .zip
 2. Extract
-3. ./tony_markov load markov_3_3_170722155638.swag
+3. ./tony_markov load markov_3_3_demo.swag
 4. ./tony_markov help
 
 # How it Works
@@ -81,4 +81,4 @@ In addition, it's recommended to use pre of at least 2. Otherwise, the AI doesn'
 
 # Force Starts
 
-In its current iteration, the program forces the text to start with "how you guys doing this is very important in reference" or "how you guys doing this is another thing of importance in reference". This is because markov chains are not aware of their position in the text, so it would be difficult for the chain to naturally begin with an iconic tonychasebusiness beginning. In addition, ending with "reference" makes the first prediction make sense even when pre=1 (reference -> ...), since tony usually follows "reference" with "to x y z..."
+In a iteration, the program forces the text to start with "how you guys doing this is very important in reference" or "how you guys doing this is another thing of importance in reference". This is because markov chains are not aware of their position in the text, so it would be difficult for the chain to naturally begin with an iconic tonychasebusiness beginning. In addition, ending with "reference" makes the first prediction make sense even when pre=1 (reference -> ...), since tony usually follows "reference" with "to x y z..."
