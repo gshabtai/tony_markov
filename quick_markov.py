@@ -38,7 +38,7 @@ if True:
         operation = "LOAD"
 
     if True:
-        fs = open(sys.argv[2],"r")
+        fs = open(sys.argv[2],"r",errors='ignore')
         line = fs.readline()
         if not line:
             raise Exception("File bad!")
