@@ -110,6 +110,14 @@ else:
                 initializing = True
                 for word in line_arr:
                     word = word.strip()
+
+                    # Fixes common Tony Chase errors. Remove for general purpose use of program.
+                    if word == "remembrance":
+                        word = "reference"
+                    elif word == "lulls":
+                        word = "laws"
+                    elif word == "lull":
+                        word = "law"
                     
                     # Makes sure init_string has enough words to fill 1 pre and 1 post.
                     if count(init_string) < PRE_LENGTH + POST_LENGTH:
