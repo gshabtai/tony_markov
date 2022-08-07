@@ -34,7 +34,7 @@ def count(s):
 markov = {}
 
 # Verifies input
-HELP_USAGE = "Usage\n\ndir_name =\tdirectory containing trining files, only .txt\nPRE_LENGTH =\tlength of markov state in words. Higher pre reduces multiplicity but increases how context-aware the AI is\nPOST_LENGTH =\tlength of markov outputs in words. Higher post makes predictions that are closer to the original text.\nfile_name =\tname of generated file, only .swag\n\nMultiplicity is the average number of posts for each pre in the dictionary. Recommended to be at least 2. Improve multiplicity by reducing pre and post numbers, and by making pre number equal the post number.\n\nUsage:\ttony_markov.py make <dir_name> <PRE_LENGTH> <POST_LENGTH>\n\ttony_markov.py load <file_name>"
+HELP_USAGE = "Usage\n\ndir_name =\tdirectory containing trining files, only .txt\nPRE_LENGTH =\tlength of markov state in words. Higher pre reduces multiplicity but increases how context-aware the AI is\nPOST_LENGTH =\tlength of markov outputs in words. Higher post makes predictions that are closer to the original text.\nfile_name =\tname of generated file, only .swag\n\nMultiplicity is the average number of posts for each pre in the dictionary. Recommended to be at least 2. Improve multiplicity by reducing pre and post numbers, and by making pre number equal the post number.\n\nUsage:\ttony_markov.py make <dir_name> <PRE_LENGTH> <POST_LENGTH>\n\ttony_markov.py load <file_name> <num_words>"
 USAGE = "Usage (type \"help\" for more details)\n\nUsage:\ttony_markov.py make <dir_name> <PRE_LENGTH> <POST_LENGTH>\n\ttony_markov.py load <file_name>"
 if len(sys.argv) < 2:
     raise Exception(USAGE)
@@ -46,8 +46,8 @@ elif sys.argv[1].upper() == "MAKE" and len(sys.argv) != 5:
     raise Exception("Wrong number of arguments for make (expected 3)")
 elif sys.argv[1].upper() == "MAKE" and (int(sys.argv[3]) <= 0 or int(sys.argv[4]) <= 0):
     raise Exception("Pre and post arguments must be greater than 0")
-elif sys.argv[1].upper() == "LOAD" and len(sys.argv) != 3:
-    raise Exception("Wrong number of arguments for load (expected 1)")
+elif sys.argv[1].upper() == "LOAD" and len(sys.argv) != 4:
+    raise Exception("Wrong number of arguments for load (expected 2)")
 elif not exists(sys.argv[2]) and sys.argv[1].upper() == "LOAD":
     raise Exception("Can't find file \"%s\"" % sys.argv[2])
 elif not isdir(sys.argv[2]) and sys.argv[1].upper() == "MAKE":
@@ -262,14 +262,18 @@ else:
         #    print(item[0],item[1].text)
 
         # Determines approximately how many words will be outputed.
-        print("Done! ",end="")
+        print("Done! Hit enter to generate!")
         while True:
-            times = 0
-            while times <= 0:
-                in_text = input("Make how many words? ")
-                if len(in_text) == 0:
-                    continue
-                times = int(in_text) // (POST_LENGTH)
+            input()
+            times = (int(sys.argv[3])-PRE_LENGTH) // POST_LENGTH
+
+            # Gets number of words from input rather than arg
+            #times = 0
+            #while times <= 0:
+            #    in_text = input("Make how many words? ")
+            #    if len(in_text) == 0:
+            #        continue
+            #    times = int(in_text) // (POST_LENGTH)
             
             #alternate use: get a random pre to start with
             #s = list(markov)[random.randint(0,len(markov.keys())-1)]
@@ -285,7 +289,7 @@ else:
             
             total = 0 # Used only to determine chain effectiveness. Effectivesness is how many times the chain is able to use a pre-post pair to determine the next word, instead of a random pre.
             added = 0 # Used only to determine chain effectiveness.
-            print()
+            
             for i in range(times):
                 total += 1
                 temp = s.split()
