@@ -4,7 +4,7 @@ Open source markov chain to emulate tonychasebusiness. Created by Guy Shabtai.
 # Quick Start
 1. Download .zip
 2. Extract
-3. ./tony_markov load markov_3_3_demo.swag
+3. ./tony_markov load markov_3_3_demo.swag 100
 4. ./tony_markov help
 
 # How it Works
