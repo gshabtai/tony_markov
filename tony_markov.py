@@ -174,7 +174,7 @@ else:
         num_items = 0
         total = 0
         for item in markov.items():
-            total += len(item[1].text)
+            total += len(item[1].encoding.values())
             num_items += 1
         ratio = str(total/num_items)
 
