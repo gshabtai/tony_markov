@@ -112,7 +112,7 @@ else:
                     word = word.strip()
 
                     # Fixes common Tony Chase errors. Remove for general purpose use of program.
-                    if word == "remembrance":
+                    if word == "remembrance" or word == "reverence":
                         word = "reference"
                     elif word == "lulls":
                         word = "laws"
