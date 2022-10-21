@@ -1,3 +1,6 @@
+# Disclaimer
+The text in the data here does not represent the views of the developer of this program. Use of the program is intended for general text-based markov chain purposes, as well as satirical emulation of tonychasebusiness. 
+
 # tony_markov
 Open source markov chain to emulate tonychasebusiness. Created by Guy Shabtai.
 
