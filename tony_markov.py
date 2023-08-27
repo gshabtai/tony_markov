@@ -35,7 +35,7 @@ markov = {}
 
 # Verifies input
 HELP_USAGE = "Usage\n\ndir_name =\tdirectory containing trining files, only .txt\nPRE_LENGTH =\tlength of markov state in words. Higher pre reduces multiplicity but increases how context-aware the AI is\nPOST_LENGTH =\tlength of markov outputs in words. Higher post makes predictions that are closer to the original text.\nfile_name =\tname of generated file, only .swag\n\nMultiplicity is the average number of posts for each pre in the dictionary. Recommended to be at least 2. Improve multiplicity by reducing pre and post numbers, and by making pre number equal the post number.\n\nUsage:\ttony_markov.py make <dir_name> <PRE_LENGTH> <POST_LENGTH>\n\ttony_markov.py load <file_name> <num_words>"
-USAGE = "Usage (type \"help\" for more details)\n\nUsage:\ttony_markov.py make <dir_name> <PRE_LENGTH> <POST_LENGTH>\n\ttony_markov.py load <file_name>"
+USAGE = "Usage (type \"help\" for more details)\n\nUsage:\ttony_markov.py make <dir_name> <PRE_LENGTH> <POST_LENGTH>\n\ttony_markov.py load <file_name> <num_words>"
 if len(sys.argv) < 2:
     raise Exception(USAGE)
 elif sys.argv[1].upper() == "HELP":
@@ -50,6 +50,10 @@ elif sys.argv[1].upper() == "LOAD" and len(sys.argv) != 4:
     raise Exception("Wrong number of arguments for load (expected 2)")
 elif not exists(sys.argv[2]) and sys.argv[1].upper() == "LOAD":
     raise Exception("Can't find file \"%s\"" % sys.argv[2])
+elif sys.argv[1].upper() == "LOAD" and not sys.argv[3].replace("-","").isnumeric():
+    raise Exception("Number of words must be a number")
+elif sys.argv[1].upper() == "LOAD" and int(sys.argv[3]) < 1:
+    raise Exception("Number of words can't be less than 1")
 elif not isdir(sys.argv[2]) and sys.argv[1].upper() == "MAKE":
     raise Exception("Can't find directory \"%s\"" % sys.argv[2])
 else:
@@ -72,7 +76,7 @@ else:
      
         time = time + datetime.now().strftime("%H%M%S") # Records time used for formatting file name
         name_of_file = "markov_"+str(PRE_LENGTH)+"_"+str(POST_LENGTH)+"_"+time+".swag"
-        fw = open(name_of_file,"x")
+        fw = open(name_of_file,"x",errors='ignore')
 
         new_path = sys.argv[2]
         if new_path[len(new_path)-1] != "/":
@@ -83,7 +87,7 @@ else:
             if not f_name.endswith(".txt"):
                 continue
 
-            fs = open(new_path + f_name,"r")
+            fs = open(new_path + f_name,"r",errors='ignore')
 
             # Reads through the whole file
             while True:
@@ -195,7 +199,7 @@ else:
 
     # The LOAD operation
     else:
-        fs = open(sys.argv[2],"r")
+        fs = open(sys.argv[2],"r",errors='ignore')
         line = fs.readline()
         if not line:
             raise Exception("File bad!")
