@@ -34,7 +34,7 @@ def count(s):
 markov = {}
 
 # Verifies input
-HELP_USAGE = "Usage\n\ndir_name =\tdirectory containing trining files, only .txt\nPRE_LENGTH =\tlength of markov state in words. Higher pre reduces multiplicity but increases how context-aware the AI is\nPOST_LENGTH =\tlength of markov outputs in words. Higher post makes predictions that are closer to the original text.\nfile_name =\tname of generated file, only .swag\n\nMultiplicity is the average number of posts for each pre in the dictionary. Recommended to be at least 2. Improve multiplicity by reducing pre and post numbers, and by making pre number equal the post number.\n\nUsage:\ttony_markov.py make <dir_name> <PRE_LENGTH> <POST_LENGTH>\n\ttony_markov.py load <file_name> <num_words>"
+HELP_USAGE = "Usage\n\ndir_name =\tdirectory containing trining files, only .txt\nPRE_LENGTH =\tlength of markov state in words. Higher pre reduces multiplicity but increases how context-aware the AI is\nPOST_LENGTH =\tlength of markov outputs in words. Higher post makes predictions that are closer to the original text.\nfile_name =\tname of generated file, only .swag\nnum_words =\tapproximate number of words to be generated\n\nMultiplicity is the average number of posts for each pre in the dictionary. Recommended to be at least 2. Improve multiplicity by reducing pre and post numbers, and by making pre number equal the post number.\n\nUsage:\ttony_markov.py make <dir_name> <PRE_LENGTH> <POST_LENGTH>\n\ttony_markov.py load <file_name> <num_words>"
 USAGE = "Usage (type \"help\" for more details)\n\nUsage:\ttony_markov.py make <dir_name> <PRE_LENGTH> <POST_LENGTH>\n\ttony_markov.py load <file_name> <num_words>"
 if len(sys.argv) < 2:
     raise Exception(USAGE)
